@@ -1,0 +1,32 @@
+<div class="header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="nav-container">
+      <span class="glyphicon glyphicon-menu-hamburger nav-icon"></span>
+      <h2>{{pageTitle}}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="content-container">
+  <div class=""showInfo">
+    <img src="{{show.image.original}}"/>
+    <h3>{{show.name}}</h3>
+    <span ng-repeat="genre in show.genres">{{genre}}</span>
+    {{show.network.name}}
+  Total Episodes {{show._embedded.episodes.length}}
+  Total Seasons {{seasonCount}}
+  {{show.summary}}
+  {{ratings}}
+  </div>
+<div class="charts">
+  <button ng-click="setGraphPeriod(30)">Past 30 Days</button>
+  <button ng-click="setGraphPeriod(14)">Past 14 Days</button>
+  <button ng-click="setGraphPeriod(7)">Past 7 Days</button>
+  <canvas id="line" class="chart chart-line" data="data"
+          labels="labels" legend="true" series="series"
+          click="onClick">
+  </canvas>
+</div>
+</div>
+
+

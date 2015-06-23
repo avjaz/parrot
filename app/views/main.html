@@ -1,0 +1,40 @@
+<!-- Add your site or application content here -->
+<div class="header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="nav-container">
+      <span class="glyphicon glyphicon-menu-hamburger nav-icon"></span>
+      <h2>{{pageTitle}}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="content-container">
+
+  <table ng-table="tableParams" template-pagination="custom/pager" class="table">
+    <tr ng-repeat="show in $data">
+      <td data-title="'ID'">{{show.id}}</td>
+      <td data-title="'Show Image'"><a ng-href="#/show/{{show.name}}"><img class="show-thumbnail" src="{{show.image.medium}}" /></a></td>
+      <td data-title="'Show Title'"><h3><a ng-href="#/show/{{show.name}}">{{show.name}}</a></h3></td>
+      <td data-title="'Genre'">
+        <strong ng-repeat="genre in show.genres">{{genre}}{{$last ? '' : ', '}}</strong>
+      </td>
+      <td data-title="'Description'">{{show.summary}}</td>
+      <td data-title="'Actors'">
+        <ul>
+          <li ng-repeat="actor in show._embedded.cast | limitTo: 3">{{actor.person.name}}</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<script type="text/ng-template" id="custom/pager">
+  <ul class="pager ng-cloak">
+    <li ng-repeat="page in pages"
+        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+      <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+      <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+    </li>
+  </ul>
+</script>
