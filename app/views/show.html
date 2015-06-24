@@ -6,27 +6,47 @@
     </div>
   </div>
 </div>
-
 <div class="content-container">
-  <div class=""showInfo">
-    <img src="{{show.image.original}}"/>
-    <h3>{{show.name}}</h3>
-    <span ng-repeat="genre in show.genres">{{genre}}</span>
-    {{show.network.name}}
-  Total Episodes {{show._embedded.episodes.length}}
-  Total Seasons {{seasonCount}}
-  {{show.summary}}
-  {{ratings}}
+  <div class="row">
+    <div class="col-sm-3 left-col">
+      <img class="show-image" src="{{show.image.original}}"/>
+    </div>
+    <div class="col-sm-5">
+      <h3>{{show.name}}</h3>
+      <span class="genre" ng-repeat="genre in show.genres">{{genre}}</span>
+      <strong>{{show.network.name}}</strong>
+      <p class="show-description">{{show.summary}}</p>
+    </div>
+    <div class="col-sm-2 count-col">
+      <span class="left">Total Episodes</span> <span class="count">{{show._embedded.episodes.length}}</span>
+    </div>
+    <div class="col-sm-2 count-col">
+      <span class="left">Total Seasons</span> <span class="count">{{seasonCount}}</span>
+    </div>
   </div>
-<div class="charts">
-  <button ng-click="setGraphPeriod(30)">Past 30 Days</button>
-  <button ng-click="setGraphPeriod(14)">Past 14 Days</button>
-  <button ng-click="setGraphPeriod(7)">Past 7 Days</button>
-  <canvas id="line" class="chart chart-line" data="data"
-          labels="labels" legend="true" series="series"
-          click="onClick">
-  </canvas>
-</div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Rating Timeseries for Show</h3>
+      <button class="btn btn-default btn-left" ng-click="setGraphPeriod(30)">Past 30 Days</button>
+      <button class="btn btn-default" ng-click="setGraphPeriod(14)">Past 14 Days</button>
+      <button class="btn btn-default" btn-right" ng-click="setGraphPeriod(7)">Past 7 Days</button>
+      <canvas id="line" class="chart chart-line" data="data"
+              labels="labels" legend="true" series="series"
+              click="onClick">
+      </canvas>
+    </div>
+    <div class="col-sm-6">
+      <h3>Rating Average for Show</h3>
+      <button class="btn btn-default" ng-click="setGraphPeriod(30)">Past 30 Days</button>
+      <button class="btn btn-default" ng-click="setGraphPeriod(14)">Past 14 Days</button>
+      <button class="btn btn-default"  ng-click="setGraphPeriod(7)">Past 7 Days</button>
+      <canvas id="bar" class="chart chart-bar" data="data"
+              labels="labels" legend="true" series="series"
+              click="onClick">
+      </canvas>
+    </div>
+  </div>
 </div>
 
 

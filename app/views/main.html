@@ -10,11 +10,11 @@
 
 <div class="content-container">
 
-  <table ng-table="tableParams" template-pagination="custom/pager" class="table">
+  <table ng-table="tableParams" template-pagination="custom/pager" show-filter="true" class="table">
     <tr ng-repeat="show in $data">
-      <td data-title="'ID'">{{show.id}}</td>
+      <td data-title="'ID'" sortable="'id'">{{show.id}}</td>
       <td data-title="'Show Image'"><a ng-href="#/show/{{show.name}}"><img class="show-thumbnail" src="{{show.image.medium}}" /></a></td>
-      <td data-title="'Show Title'"><h3><a ng-href="#/show/{{show.name}}">{{show.name}}</a></h3></td>
+      <td data-title="'Show Title'" sortable="'name'" filter="{ 'name': 'text' }"><h3><a ng-href="#/show/{{show.name}}">{{show.name}}</a></h3></td>
       <td data-title="'Genre'">
         <strong ng-repeat="genre in show.genres">{{genre}}{{$last ? '' : ', '}}</strong>
       </td>

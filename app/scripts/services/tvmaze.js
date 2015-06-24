@@ -1,22 +1,21 @@
 'use strict';
 
 angular.module('tvMazeService', ['ngResource'])
-  .factory('tvMaze', ['$resource', '$q', function($resource, $q){
-    var shows = {};
+  .factory('tvMaze', ['$http', '$q', function($http, $q){
+    var shows = {};   //The 'cache' of shows - a map keyed by show name, value is show data
+    var url = 'http://api.tvmaze.com/singlesearch/shows?embed[]=episodes&embed[]=cast&q=';
     return {
       get: function(showTitle) {
         var deferred = $q.defer();
         if (shows[showTitle] === undefined) {
-          var Show = $resource('http://api.tvmaze.com/singlesearch/shows', {q: showTitle, embed: 'episodes'});
-          Show.get(
-            function(data) {
+          $http.get(url + showTitle)
+            .success(function(data){
               data.summary = data.summary.replace(/<[^>]+>/gm, '');
               deferred.resolve(data);
-            },
-            function(reason) {
-              console.log('Error:' + reason);
-            }
-          );
+            })
+            .error(function(data, status) {
+              console.log("Error: " + data + " " + status); //FIXME - do some better error handling
+            });
         }
         else {
           deferred.resolve(shows[showTitle]);
@@ -26,21 +25,24 @@ angular.module('tvMazeService', ['ngResource'])
       },
       getAll: function(showTitles) {
         var deferred = $q.defer();
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < showTitles.length; i++) {
           var showTitle = showTitles[i];
-          var Show = $resource('http://api.tvmaze.com/singlesearch/shows', {q: showTitle, embed: 'cast'});
-          Show.get(
-            function(data) {
+          $http.get(url + showTitle)
+            .success(function(data){
+              //Remove all the html tags
               data.summary = data.summary.replace(/<[^>]+>/gm, '');
-              shows[data.name] = data;      //Put into 'cache'
+
+              //Put show into the 'cache'
+              shows[data.name] = data;
+
+              //If all shows are in the 'cache' resolve the deferred
               if (Object.keys(shows).length === showTitles.length) {
                 deferred.resolve(shows);
               }
-            },
-            function(reason) {
-              console.log('Error:' + reason);
-            }
-          );
+            })
+            .error(function(data, status) {
+              console.log("Error: " + data + " " + status); //FIXME - do some better error handling
+            });
         }
         return deferred.promise;
       }
