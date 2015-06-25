@@ -20,48 +20,48 @@ angular.module('parrotApp')
       'Beauty and the Beast',
       'Better Call Saul',
       'Breaking Bad',
-      'Castle'
-      //'Chicago Pd',
-      //'Covert Affairs',
-      //'Criminal Minds',
-      //'Daredevil',
-      //'Dawson\'s Creek',
-      //'Defiance',
-      //'Dexter',
-      //'Doctor Who',
-      //'Drake and Josh',
-      //'Durarara!!',
-      //'Er',
-      //'Game Of Thrones',
-      //'Girls',
-      //'Graceland',
-      //'Grey\'s Anatomy',
-      //'Hannibal',
-      //'House Of Cards',
-      //'How I Met Your Mother',
-      //'Marco Polo',
-      //'Marvel\'s Agent Carter',
-      //'Modern Family',
-      //'Mr. Robot',
-      //'NCIS',
-      //'Orange Is The New Black',
-      //'Orphan Black',
-      //'Outlander',
-      //'Penny Dreadful',
-      //'Reign',
-      //'Sense8',
-      //'Shameless (US)',
-      //'Silicon Valley',
-      //'Stalker',
-      //'Suits',
-      //'Texas Rising',
-      //'The Amazing Race',
-      //'The Big Bang Theory',
-      //'The Flash',
-      //'The Messengers',
-      //'The Musketeers',
-      //'The Whispers',
-      //'True Detective'
+      'Castle',
+      'Chicago Pd',
+      'Covert Affairs',
+      'Criminal Minds',
+      'Daredevil',
+      'Dawson\'s Creek',
+      'Defiance',
+      'Dexter',
+      'Doctor Who',
+      'Drake and Josh',
+      'Durarara!!',
+      'Er',
+      'Game Of Thrones',
+      'Girls',
+      'Graceland',
+      'Grey\'s Anatomy',
+      'Hannibal',
+      'House Of Cards',
+      'How I Met Your Mother',
+      'Marco Polo',
+      'Marvel\'s Agent Carter',
+      'Modern Family',
+      'Mr. Robot',
+      'NCIS',
+      'Orange Is The New Black',
+      'Orphan Black',
+      'Outlander',
+      'Penny Dreadful',
+      'Reign',
+      'Sense8',
+      'Shameless (US)',
+      'Silicon Valley',
+      'Stalker',
+      'Suits',
+      'Texas Rising',
+      'The Amazing Race',
+      'The Big Bang Theory',
+      'The Flash',
+      'The Messengers',
+      'The Musketeers',
+      'The Whispers',
+      'True Detective'
     ];
 
     $scope.tableParams = new ngTableParams(
@@ -70,9 +70,6 @@ angular.module('parrotApp')
         count: 4,
         sorting: {
           name: 'asc'
-        },
-        filter: {
-          name:''
         }
       },
       {
@@ -85,13 +82,7 @@ angular.module('parrotApp')
                 shows.push(data[key]);
               }
 
-              var filteredData = params.filter ? $filter('filter')(shows, params.filter()) : shows;
-
-              var orderedData = params.sorting() ?
-                $filter('orderBy')(filteredData, params.orderBy()) :
-                filteredData;
-
-              $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+              $defer.resolve(shows.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             });
         }
       }

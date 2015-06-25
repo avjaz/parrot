@@ -1,24 +1,16 @@
-<!-- Add your site or application content here -->
-<div class="header">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="nav-container">
-      <span class="glyphicon glyphicon-menu-hamburger nav-icon"></span>
-      <h2>{{pageTitle}}</h2>
-    </div>
-  </div>
-</div>
+<div ng-include="'views/frags/header.html'"></div>
 
-<div class="content-container">
+<div class="content-container main-page">
 
-  <table ng-table="tableParams" template-pagination="custom/pager" show-filter="true" class="table">
+  <table ng-table="tableParams" template-pagination="custom/pager" class="table">
     <tr ng-repeat="show in $data">
-      <td data-title="'ID'" sortable="'id'">{{show.id}}</td>
+      <td data-title="'ID'">{{show.id}}</td>
       <td data-title="'Show Image'"><a ng-href="#/show/{{show.name}}"><img class="show-thumbnail" src="{{show.image.medium}}" /></a></td>
-      <td data-title="'Show Title'" sortable="'name'" filter="{ 'name': 'text' }"><h3><a ng-href="#/show/{{show.name}}">{{show.name}}</a></h3></td>
+      <td data-title="'Show Title'"><h3><a ng-href="#/show/{{show.name}}">{{show.name}}</a></h3></td>
       <td data-title="'Genre'">
         <strong ng-repeat="genre in show.genres">{{genre}}{{$last ? '' : ', '}}</strong>
       </td>
-      <td data-title="'Description'">{{show.summary}}</td>
+      <td class="description" data-title="'Description'"><p ng-text-truncate="show.summary" ng-tt-words-threshold="20" ng-tt-no-toggling></p></td>
       <td data-title="'Actors'">
         <ul>
           <li ng-repeat="actor in show._embedded.cast | limitTo: 3">{{actor.person.name}}</li>

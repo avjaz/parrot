@@ -19,7 +19,8 @@ angular
     'ngTable',
     'tvMazeService',
     'parrotApiService',
-    'chart.js'
+    'chart.js',
+    'ngTextTruncate'
   ])
   .config(function ($routeProvider) {
     $routeProvider

@@ -1,11 +1,4 @@
-<div class="header">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="nav-container">
-      <span class="glyphicon glyphicon-menu-hamburger nav-icon"></span>
-      <h2>{{pageTitle}}</h2>
-    </div>
-  </div>
-</div>
+<div ng-include="'views/frags/header.html'"></div>
 <div class="content-container">
   <div class="row">
     <div class="col-sm-3 left-col">
@@ -28,21 +21,21 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>Rating Timeseries for Show</h3>
-      <button class="btn btn-default btn-left" ng-click="setGraphPeriod(30)">Past 30 Days</button>
-      <button class="btn btn-default" ng-click="setGraphPeriod(14)">Past 14 Days</button>
-      <button class="btn btn-default" btn-right" ng-click="setGraphPeriod(7)">Past 7 Days</button>
-      <canvas id="line" class="chart chart-line" data="data"
-              labels="labels" legend="true" series="series"
+      <button class="btn btn-default btn-left" ng-click="setGraphPeriod('line', 30)">Past 30 Days</button>
+      <button class="btn btn-default" ng-click="setGraphPeriod('line', 14)">Past 14 Days</button>
+      <button class="btn btn-default btn-right" ng-click="setGraphPeriod('line', 7)">Past 7 Days</button>
+      <canvas id="line" class="chart chart-line" data="lineRatings"
+              labels="lineLabels" legend="true" series="series"
               click="onClick">
       </canvas>
     </div>
     <div class="col-sm-6">
       <h3>Rating Average for Show</h3>
-      <button class="btn btn-default" ng-click="setGraphPeriod(30)">Past 30 Days</button>
-      <button class="btn btn-default" ng-click="setGraphPeriod(14)">Past 14 Days</button>
-      <button class="btn btn-default"  ng-click="setGraphPeriod(7)">Past 7 Days</button>
-      <canvas id="bar" class="chart chart-bar" data="data"
-              labels="labels" legend="true" series="series"
+      <button class="btn btn-default btn-left" ng-click="setGraphPeriod('bar', 30)">Past 30 Days</button>
+      <button class="btn btn-default" ng-click="setGraphPeriod('bar', 14)">Past 14 Days</button>
+      <button class="btn btn-default btn-right"  ng-click="setGraphPeriod('bar', 7)">Past 7 Days</button>
+      <canvas id="bar" class="chart chart-bar" data="barRatings"
+              labels="barLabels" legend="true" series="series"
               click="onClick">
       </canvas>
     </div>
